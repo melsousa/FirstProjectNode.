@@ -6,7 +6,16 @@ const Product = mongoose.model("Product");
 module.exports = {
     async index(req, res){
         //buscando registros do banco de dados
-        const products = await Product.find();
+
+        //esse parametro vai permitir a mudança de pagina pela url (?page=2), por meio do get
+        //definido igual = 1 por padrão caso não encontre os outros valores
+        const { page = 1} = req.query;
+
+        const products = await Product.paginate({}, {page, limit: 10});//na primeria chave seria as condições 
+                                                                        // (where id = alguma coisa), page:1, pagina atual é 1
+                                                                        //limit de pagina = 10 
+
+        // const products = await Product.find();, para poucos registros
 
         return res.json(products); //.json uma estrutura de dados
                         //que é facíl de ler e alterar dados

@@ -1,4 +1,5 @@
 const express = require('express'); //chamando a depedência express
+const cors = require('cors');
 const mongoose = require('mongoose');
 const requireDir = require('require-dir');
 //Inciando o APP
@@ -6,6 +7,8 @@ const app = express();
 
 //permitir que envie os dados em formato de json
 app.use(express.json());
+
+app.use(cors());//permite que qualquer dominio acesse a api
 //Iniciando o banco de dados e conectando
 mongoose.connect(
     'mongodb://localhost:27017/nodeapi',
